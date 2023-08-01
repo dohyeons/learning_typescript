@@ -434,8 +434,6 @@ type Name = string | number;
 type firstName = Name | boolean; // string | number | boolean
 ```
 
-### 🤔 오늘 읽은 소감은? 떠오르는 생각을 가볍게 적어보세요
-
 # 5장 함수
 
 ## 5.1 함수 매개변수
