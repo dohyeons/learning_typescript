@@ -298,6 +298,144 @@ let name: string = "이름";
 export {};
 ```
 
+# 3장 유니언과 리터럴
+
+- 유니언: 값에 허용되는 타입을 두가지 이상으로 확장하는 것
+- 내로잉: 값에 허용된 타입이 하나 이상의 가능한 타입이 되지 않도록 좁히는 것
+
+## 3.1 유니언 타입
+
+<aside>
+💡 정확히 어떤 타입인지는 모르지만, 두 가지 이상의 타입 중 하나라는 것을 알고 있을 때 사용
+
+</aside>
+
+```tsx
+let name: string | number;
+```
+
+### 유니언 속성
+
+유니언 타입을 가지고 있다면 가능한 타입 모두에 존재하는 속성에만 접근이 가능하다.
+
+```tsx
+let name = Math.random() > 0.5 ? "이름" : 123;
+
+name.toString(); // ok
+
+name.toFixed(); // Error
+
+name.toUpperCase(); // Error
+```
+
+이처럼 유니언 타입으로 정의된 타입 중 특정 타입에 존재하는 속성을 사용하고 싶을 경우, 해당 변수가 구체적으로 어떤 타입인지를 타입스크립트에 알려야 하는데, 이를 내로잉이라고 부른다.
+
+### 내로잉
+
+<aside>
+💡 **유니언 타입으로 정의된 타입 중 특정 타입에 존재하는 속성을 사용하고 싶을 경우, 해당 변수가 구체적으로 어떤 타입인지를 타입스크립트에 알리는 것.**
+
+</aside>
+
+- 타입 가드: 내로잉에 사용할 수 있는 논리적 검사
+
+### 첫 번째 타입 가드: 값 할당
+
+```tsx
+let name: string | number;
+
+name = "이름";
+
+name.toUpperCase();
+
+name.toFixed(); // Error
+```
+
+### 두 번째 타입 가드: 조건 검사
+
+```tsx
+let name = Math.random() > 0.5 ? "이름" : 123;
+
+if (name === "이름") {
+	name.toUpperCase();
+}
+```
+
+### 세 번째 타입 가드: `typeof` 검사
+
+```tsx
+let name = Math.random() > 0.5 ? "이름" : 123;
+
+if (typeof name === "string") {
+	name.toUpperCase();
+}
+```
+
+이는 삼항연산자로도 표현할 수 있다.
+
+```tsx
+typeof name === "string" ? name.toUpperCase() : name.toFixed();
+```
+
+## 3.3 리터럴 타입
+
+<aside>
+💡 원시 타입 값 중 어떤 것이 아닌, 특정 원시값으로 알려진 타입
+
+</aside>
+
+```tsx
+const name = "이름";
+```
+
+여기서 `name` 의 타입은 `‘이름’` 이라는 리터럴 타입이다.
+
+원시 타입은, 그 타입에서 나올 수 있는 무수히 많은 리터럴 타입의 집합이라 할 수 있다.
+
+이를 유니언 타입으로 사용할 수 있다.
+
+```tsx
+let name: number | "이름";
+```
+
+### 리터럴 할당 가능성
+
+```tsx
+let name1: "이름";
+
+name1 = "이름";
+
+let name2 = "";
+
+name2 = name1;
+```
+
+`name1` 은 리터럴 타입, `name2` 는 문자열 타입. `name2` 는 문자열 타입, 즉, 가능한 모든 문자열들의 집합이기 때문에 `name1` 를 `name2` 에 할당할 수 있지만, 반대로 `name1 = name2` 는 불가능하다.
+
+## 3.4 타입 별칭
+
+<aside>
+💡 변수처럼 자주 사용하는 타입에 이름을 할당
+
+</aside>
+
+```tsx
+type Name = string;
+
+let name: Name;
+// 물론 위 코드는 매우 비효율적인 코드
+```
+
+### 타입 별칭 결합
+
+```tsx
+type Name = string | number;
+
+type firstName = Name | boolean; // string | number | boolean
+```
+
+### 🤔 오늘 읽은 소감은? 떠오르는 생각을 가볍게 적어보세요
+
 # 5장 함수
 
 ## 5.1 함수 매개변수
