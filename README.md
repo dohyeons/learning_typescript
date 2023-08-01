@@ -227,7 +227,7 @@ function paintPainting(painter: Painter, painting: string): booelan {...}
 💡 **타입: 자바스크립트에서 다루는 값의 형태에 대한 설명**
 
 </aside>
-
+# 2장 타입 시스템
 자바스크립트의 원시 타입은 다음과 같으며, 타입스크립트에서는 값을 이 원시 타입 중 하나로 간주한다.
 
 1. null
